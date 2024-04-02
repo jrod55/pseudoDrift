@@ -427,7 +427,7 @@ pseudo_sdc <- function(
         group_by(batch) %>%
         mutate(vals_rank = percent_rank(area)) %>%
         filter(between(vals_rank, all_of(m_min), all_of(m_max))) %>%
-        mutate(batch_position = ntile(index, bre)) %>%
+        mutate(batch_position = ntile(index, unique(bre))) %>%
         group_by(batch_position,batch) %>%
         mutate(n_per = n(),
                index = min(index),
@@ -475,7 +475,7 @@ pseudo_sdc <- function(
         group_by(batch) %>%
         mutate(vals_rank = percent_rank(area)) %>%
         filter(!between(vals_rank, all_of(m_min), all_of(m_max))) %>%
-        mutate(batch_position = ntile(index, bre)) %>%
+        mutate(batch_position = ntile(index, unique(bre))) %>%
         group_by(batch_position,batch) %>%
         mutate(n_per = n(),
                index = min(index),
